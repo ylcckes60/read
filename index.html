@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拔不起來的筆 閱讀測驗</title>
+<style>
+/* Zhuyin Font Style - Always defined here for better caching */
+@font-face {
+    font-family: 'ㄅ注音芫荽 Regular';
+    src: url('https://kentxchang-goedutw.github.io/web/BpmfIansui-Regular_0.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+.zhuyin-font {
+    font-family: 'ㄅ注音芫荽 Regular', sans-serif;
+}
+body{font-family:"Noto Sans TC",sans-serif;margin:20px;line-height:1.6;}
+.section{padding:15px;border-radius:10px;margin-bottom:20px;}
+.story-block{background:#f7fbf0;}
+.quiz-block{background:#fff;}
+.result-block{background:#dfe9f8;display:none;}
+.quiz-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.level{padding:12px;border-radius:10px;}
+.l1{background:#e8f5ff;} .l2{background:#fff6e8;} .l3{background:#ffe8f7;} .l4{background:#e8ffef;}
+h1{margin-top:0;color:#5a2;} h2{margin:6px 0;color:#5a2;font-size:1.1rem;}
+.question{margin:8px 0;} .question label{display:block;margin:2px 0; padding: 4px; border-radius: 4px; transition: background-color 0.2s;}
+.question label:hover {background-color: #f0f0f0;}
+.okq{background:#e6ffe6;border-radius:6px;} .badq{background:#fff;border-radius:6px;}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:15px;}
+.box{border:2px solid #5a2;padding:10px;text-align:center;font-weight:bold;border-radius:8px;font-size:.9rem;line-height:1.4;}
+.res1{background:#e8f5ff;} .res2{background:#fff6e8;} .res3{background:#ffe8f7;} .res4{background:#e8ffef;}
+.okp{background:#e6ffe6;} .badp{background:#ffecec;}
+.explain{margin:4px 0;padding:4px 18px;border-radius:6px;}
+button{margin-top:12px;padding:8px 18px;border:none;border-radius:8px;background:#5a2;color:#fff;font-weight:bold;cursor:pointer; transition: background-color 0.3s, transform 0.1s;}
+button:hover {background-color: #488a1f; transform: translateY(-1px);}
+.download-button {background-color: #2196F3; color: white;}
+.credit{position:fixed;right:20px;bottom:20px;background:#fff;border:2px solid #5a2;border-radius:8px;padding:6px 12px;box-shadow:0 0 4px rgba(0,0,0,.2);font-size:.8rem;}
+.credit a{text-decoration:none;color:#5a2;font-weight:bold;}
+/* 新增的注音選單樣式 */
+.font-selector-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 2px solid #5a2;
+    border-radius: 8px;
+    padding: 6px 12px;
+    box-shadow: 0 0 4px rgba(0,0,0,.2);
+}
+.font-selector-container label {
+    margin-right: 8px;
+    font-size: 0.9rem;
+    color: #5a2;
+}
+.font-selector {
+    padding: 4px;
+    border: none;
+    font-size: 0.9rem;
+    background-color: transparent;
+}
+/* 響應式調整 */
+@media (max-width: 768px) {
+    .quiz-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .font-selector-container {
+        top: 10px;
+        right: 10px;
+        font-size: 0.8rem;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="font-selector-container">
+    <label for="font-selector">字型：</label>
+    <select id="font-selector" class="font-selector">
+        <option value="default">無注音</option>
+        <option value="zhuyin">注音</option>
+    </select>
+</div>
+
+<div class="story-block section"><h1>第一課 拔不起來的筆 - 王文華</h1><p>
+這天早上，王羲之家發生一件大事，潔白的牆壁上，被人寫個大大的「大」字。來來往往的行人交頭接耳，王羲之是位大書法家，究竟是誰這麼大膽，敢在這裡留字？
+<br>
+王羲之把家人找來，一個一個問清楚，才知道是小兒子王獻之寫的字。六歲的王獻之寫出來的「大」字，快要跟自己一樣高。大家都以為他會被處罰，沒想到王羲之卻笑笑的說：「明天起，獻之可以學字了。」
+<br>
+原來，王獻之天天看父親寫字，幾次求父親教他練字，父親不肯，但他不願放棄，所以才在牆上寫字證明自己長「大」了。後來，有了父親的指導，王獻之學得好用心，即使村裡的孩子約他出門玩，他也不理。
+<br>
+有一次，他正在書房寫字，沒發現父親進來。王羲之看兒子這麼專注，突然抓住他的筆，用力向上一提。如果是一般人，被人這麼一提，毛筆一定被拔走了。然而，毛筆仍然被王獻之牢牢的抓在手裡，他只是嚇一跳，以為自己寫錯字了。
+<br>
+父親拍拍他的頭，高興的說：「你寫字時手中有勁，筆握得牢，只要好好練習，成就一定比我還要好。」
+</p></div>
+
+<div class="quiz-block section"><form id="quiz">
+<div class="quiz-grid" id="qgrid"></div>
+<button type="button" onclick="grade()">提交測驗</button></form></div>
+
+<div id="result" class="result-block section">
+<div class="grid" id="grid"></div><div id="details"></div>
+<button id="downloadBtn" type="button" class="download-button">下載結果</button>
+</div>
+
+<div class="credit"><a href="https://kentxchang.blogspot.tw" target="_blank" rel="noopener">Made by 阿剛老師</a></div>
+
+<!-- 引入 html2canvas 函式庫 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+const desc=["提取訊息","推論訊息","詮釋整合","比較評估"];
+const qs=[
+{l:1,q:"潔白的牆壁上被寫了一個什麼字？",a:["「人」字","「小」字","「大」字","「一」字"],c:2,e:"文中明確指出牆壁上被人寫了一個大大的「大」字。"},
+{l:1,q:"王獻之是在哪個地方專心練習寫字的？",a:["院子裡","書房裡","客廳裡","村口的大石頭上"],c:1,e:"後來他有了父親指導，在「書房」裡專注寫字。"},
+{l:1,q:"王羲之在抓住王獻之的筆時，王獻之的第一反應是什麼？",a:["生氣大哭","驚嚇以為寫錯字了","趕快放手","大喊救命"],c:1,e:"文中提到他「只是嚇一跳，以為自己寫錯字了」。"},
+{l:2,q:"王羲之看到牆上的「大」字後，為什麼沒有處罰王獻之反而同意他學字？",a:["因為他覺得字寫得很好","因為他想測試王獻之的反應","因為他看出王獻之的決心","因為他答應過王獻之"],c:2,e:"王獻之用這個字來證明自己長「大」了，父親看出他的用心和渴望學習的決心。"},
+{l:2,q:"從「即使村裡的孩子約他出門玩，他也不理」這句話，可以推論王獻之學習的態度是什麼？",a:["懶惰敷衍","興趣缺缺","專心一意","半途而廢"],c:2,e:"為了練字而拒絕玩樂，顯示出他學習時非常專注和用心，達到專心一意的程度。"},
+{l:2,q:"根據王羲之說的「你寫字時手中有勁，筆握得牢」，「勁」指的是什麼？",a:["毛筆的品質","寫字的字體","寫字的力度與專注度","父親的指導"],c:2,e:"「手中有勁，筆握得牢」指的是王獻之寫字時所使用的力量和高度的專注力。"},
+{l:3,q:"本文的標題「拔不起來的筆」最能詮釋王獻之的哪種特質？",a:["天資聰穎","身體強壯","堅定不移的決心","喜歡惡作劇"],c:2,e:"筆被牢牢握住，象徵他對學習書法具有堅定不移的決心與超乎常人的專注。"},
+{l:3,q:"整篇故事最想傳達給讀者的道理是什麼？",a:["只要有天分就能成功","學習書法比任何事都重要","只要努力專注就能有所成就","父親的指導是唯一的成功關鍵"],c:2,e:"故事強調王獻之不願放棄的決心和專注用心的練習，這些努力是取得成就的關鍵。"},
+{l:4,q:"王羲之對王獻之的稱讚「成就一定比我還要好」，這句話反映出哪一種教育態度？",a:["溺愛放縱","嚴厲苛刻","期望兒子青出於藍","敷衍了事"],c:2,e:"這是父親對兒子潛力的肯定，並抱持著希望兒子能超越自己的包容和期望。"},
+{l:4,q:"如果王羲之沒有給王獻之寫字的機會，你認為王獻之最可能會怎麼做？",a:["馬上放棄學字","去尋找別人教他","繼續在牆上寫字表達決心","抱怨父親不公平"],c:2,e:"根據他「不願放棄」的性格，他會繼續用其他方式表達學習的渴望和決心，如繼續在牆上寫字。"}
+];
+
+(function render(){let h="",n=1;[1,2,3,4].forEach(l=>{h+=`<div class="level l${l}"><h2>第${l}層－${desc[l-1]}</h2>`;
+qs.filter(o=>o.l===l).forEach(o=>{const i=qs.indexOf(o);
+h+=`<div class="question" id="q${i}">${n++}. ${o.q}`+
+o.a.map((t,k)=>`<label><input type="radio" name="q${i}" value="${k}">${t}</label>`).join("")+
+"</div>";});h+="</div>";});document.getElementById("qgrid").innerHTML=h;})();
+
+function grade(){
+let correct=[0,0,0,0],total=[0,0,0,0],detail="";
+qs.forEach((o,i)=>{const rs=document.querySelectorAll(`input[name=q${i}]`);
+rs.forEach(r=>{const lab=r.parentElement;lab.querySelector('.mark')&&lab.removeChild(lab.querySelector('.mark'));});
+const sel=[...rs].find(r=>r.checked);const ok=sel&&+sel.value===o.c;
+total[o.l-1]++;if(ok)correct[o.l-1]++;
+detail+=`<p class="explain ${ok?'okp':'badp'}">題${i+1}：${ok?"✔":"✘"}，答案 ${o.a[o.c]}｜解析：${o.e}</p>`;
+document.getElementById(`q${i}`).className=`question ${ok?'okq':'badq'}`;
+rs.forEach(r=>{const lab=r.parentElement;const m=document.createElement("span");m.className="mark";
+m.textContent=(+r.value===o.c)?"✔":(r.checked?"✘":"");lab.appendChild(m);});
+});
+document.getElementById("grid").innerHTML=correct.map((c,i)=>{const p=Math.round(c/total[i]*100)||0;
+return `<div class="box res${i+1} ${c===total[i]?'okq':'badq'}">層${i+1}<br>${desc[i]}<br>${c}/${total[i]}<br>${p}%</div>`;}).join("");
+document.getElementById("details").innerHTML=detail;document.getElementById("result").style.display="block";}
+
+document.getElementById('downloadBtn').addEventListener('click', function() {
+    // 鎖定要下載的區塊，也就是 #result
+    const resultBlock = document.getElementById('result');
+
+    // 使用 html2canvas 將區塊轉換為 canvas
+    html2canvas(resultBlock).then(function(canvas) {
+        // 建立一個假的連結來觸發下載
+        const link = document.createElement('a');
+        link.download = '測驗結果.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    });
+});
+
+// 新增的注音選單邏輯
+document.getElementById('font-selector').addEventListener('change', function() {
+    const selectedValue = this.value;
+    const body = document.body;
+
+    if (selectedValue === 'zhuyin') {
+        body.classList.add('zhuyin-font');
+    } else {
+        body.classList.remove('zhuyin-font');
+    }
+});
+</script>
+</body>
+</html>
